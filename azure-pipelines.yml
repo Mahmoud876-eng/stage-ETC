@@ -15,13 +15,13 @@ steps:
     versionSpec: '18.x'
   displayName: 'Install Node.js'
 
-- script:
-    npm install -g @angular/cli
+- powershell: 
+   npm install -g @angular/cli
   displayName: "install angular cli"
-- script:
+- powershell: 
     npm install
   displayName: "install dependecies"
-- script: 
+- powershell: 
     ng build 
   displayName: ' build the app'
   
