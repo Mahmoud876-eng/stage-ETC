@@ -1,0 +1,9 @@
+.example-full-width {
+  width: 70%;
+}
+.normal-disabled {       /* Prevent clicking */
+  opacity: 1;                 /* Keep full opacity */
+  color: inherit;             /* Keep text color normal */
+  background-color: inherit;  /* Keep background normal */
+  cursor: default;            /* Show default cursor */
+}

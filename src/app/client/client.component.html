@@ -1,0 +1,26 @@
+<div class="cards-container">    
+    <mat-card>
+      <mat-card-content>
+        <div class="dashboard-grid">
+          <div class="dashboard-item">
+            <h1>Trends</h1>
+            <app-line [dataSeries]="dataSeries"></app-line>
+          </div>
+          <div class="dashboard-item">
+            <h1>Percentage of Disputes</h1>
+            <app-pie [yes]="dispute" ></app-pie>
+          </div>
+          <div class="dashboard-item">
+            <h1>Dispute per Organisation</h1>
+            <app-column apiData="http://127.0.0.1:5000/column"></app-column>
+          </div>
+          <div class="dashboard-item">
+            <h1>Overdue Invoices</h1>
+            <app-column apiData="http://127.0.0.1:5000/column/overdue"></app-column>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+    <app-table></app-table>
+    <app-tab-disp ></app-tab-disp>
+</div>

@@ -1,0 +1,5 @@
+.cards-container {
+  display: flex;
+  gap: 20px; /* optional space between cards */
+  flex-wrap: wrap; /* if you want them to wrap on smaller screens */
+}

@@ -1,0 +1,285 @@
+<!--
+<form class="mat-form-field">
+        <mat-form-field class="example-full-width">
+            <mat-label>names</mat-label>
+            <input type="text"
+                placeholder="Pick one"
+                aria-label="names"
+                matInput
+                [formControl]="myControl"
+               [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let patient of filtered | async" [value]="patient">{{patient}}</mat-option>
+                </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="transfer()"><mat-icon>search</mat-icon></button>
+</form>
+-->
+<div *ngIf="date">
+  <mat-form-field class="mat-form-field">
+      <mat-label>min time </mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="time.min">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>max time </mat-label>
+    <input matInput [matDatepicker]="pickery" [(ngModel)]="time.max">
+    <mat-datepicker-toggle matSuffix [for]="pickery"></mat-datepicker-toggle>
+    <mat-datepicker #pickery></mat-datepicker>
+    
+  </mat-form-field>
+    <button mat-raised-button color="primary" (click)="filterbytime()" [disabled]="!time.min || !time.max || time.min > time.max">
+      Filter by Time
+    </button>
+</div>
+
+
+
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <!-- Client ID Column (snake_case) -->
+                                          <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>
+      <div *ngIf="!SN">   
+        <button mat-button (click)="sortData('name')" [disabled]="status_client" class="normal-disabled">
+           name
+        </button>
+      </div>
+
+      <form class="mat-form-field" *ngIf="SN">
+        <mat-form-field class="example-full-width">
+            <mat-label>names</mat-label>
+            <input type="text"
+                placeholder="name"
+                aria-label="names"
+                matInput
+                [formControl]="myControl"
+               [matAutocomplete]="auto"
+                (keydown.enter)="transfer('autocomplete/')"
+                (keydown.escape)="SN=false"
+                
+                >
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let patient of filtered | async" [value]="patient">{{patient}}</mat-option>
+                </mat-autocomplete>
+        </mat-form-field>
+      </form>
+    </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button (click)="sortDataname(element.client_id)" [disabled]="status_client" class="normal-disabled">{{element.name}}</button>
+    </td>
+  </ng-container>
+
+  <!-- Address Column -->
+  <ng-container matColumnDef="address">
+    <th mat-header-cell *matHeaderCellDef> Address </th>
+    <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+  </ng-container>
+
+  <!-- Email Column -->
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef> 
+      <div *ngIf="!mail"> 
+        <button mat-button (click)="sortData('email')" [disabled]="status_client" class="normal-disabled">
+          Email
+        </button>
+      </div>  
+      <form class="mat-form-field" *ngIf="mail">
+        <mat-form-field style="width: 300px;">
+            <mat-label>mail</mat-label>
+            <input type="text"
+                placeholder="mail"
+                aria-label="mail"
+                matInput
+                [formControl]="myControl"
+                [matAutocomplete]="auto"
+                (keydown.enter)="transfer('mail/')"
+                (keydown.escape)="mail=false"
+                
+                >
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let patient of filtered | async" [value]="patient">{{patient}}</mat-option>
+                </mat-autocomplete>
+        </mat-form-field>
+      </form> 
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+  </ng-container>
+
+  <!-- Phone Column -->
+  <ng-container matColumnDef="phone">
+    <th mat-header-cell *matHeaderCellDef> Phone </th>
+    <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+  </ng-container>
+
+  <!-- due date Column -->
+  <ng-container matColumnDef="due_date">
+    <th mat-header-cell *matHeaderCellDef> Due Date </th>
+    <td mat-cell *matCellDef="let element"> {{element.due_date | date:'yyyy-MM-dd'}} </td>
+  </ng-container>
+
+  <!-- invoices Status Column -->
+  <ng-container matColumnDef="invoices_status">
+    <th mat-header-cell *matHeaderCellDef> Status  inv</th>
+    <td mat-cell *matCellDef="let element"> 
+      <button mat-button (click)="sortDataStatus(element)" [disabled]="status_client" class="normal-disabled">  {{element.invoices_status}} </button>
+    </td>
+  </ng-container>
+  <!-- Created At Column -->
+  <ng-container matColumnDef="created_at">
+    <th mat-header-cell *matHeaderCellDef> 
+     <button mat-button (click)="date_a()" [disabled]="status_client" class="normal-disabled"> date</button>
+    </th>
+    <td mat-cell *matCellDef="let element"> {{element.created_at | date:'yyyy-MM-dd'}} </td>
+  </ng-container>
+
+  <!-- Updated At Column -->
+  <ng-container matColumnDef="updated_at">
+    <th mat-header-cell *matHeaderCellDef> Updated At </th>
+    <td mat-cell *matCellDef="let element"> {{element.updated_at | date:'yyyy-MM-dd'}} </td>
+  </ng-container>
+
+
+                        <!-- Invoice Number Column -->
+<ng-container matColumnDef="invoice_number">
+  <th mat-header-cell *matHeaderCellDef > 
+   <button mat-button (click)="invoices()" class="normal-disabled" [disabled]="status_client">Invoice Number </button> 
+  </th>
+  <td mat-cell *matCellDef="let element"> {{element.invoice_number}} </td>
+</ng-container>
+
+                            <!-- Montant Column -->
+<ng-container matColumnDef="montant">
+  <th mat-header-cell *matHeaderCellDef> Montant </th>
+  <td mat-cell *matCellDef="let element">
+    <button mat-button (click)="edit(element)" [disabled]="status_client" *ngIf="!bool" class="normal-disabled"> 
+      <div style="display: flex;">
+        {{element.montant}}
+        <span matSuffix>€</span>
+      </div>
+    </button>
+    <div *ngIf="bool">    
+
+      <button mat-button (click)="edit(element)" *ngIf="!(element.invoice_id==id)" [disabled]="status_client">
+        <div style="display: flex;">
+          {{element.montant}}
+          <span matSuffix>€</span>
+        </div>
+      </button>
+      <div *ngIf="element.invoice_id==id">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input matInput type="number" [(ngModel)]="element.montant" (keydown.escape)="edit(element)" />
+          <span matSuffix>€</span>
+        </mat-form-field>
+        
+        
+      </div>
+      </div>  
+   
+  </td>
+</ng-container>
+                        <!-- amount paid-->
+
+  <ng-container matColumnDef="amount_paid">
+  <th mat-header-cell *matHeaderCellDef> Amount Paid </th>
+  <td mat-cell *matCellDef="let element">
+    <button mat-button (click)="edit_paid(element)" *ngIf="!paid" [disabled]="status_client" class="normal-disabled">
+      <div style="display: flex;">
+        {{element.amount_paid}}
+        <span matSuffix>€</span>
+      </div>
+    </button>
+    <div *ngIf="paid">
+      <button mat-button (click)="edit_paid(element)" *ngIf="!(element.invoice_id==id_p)">
+        <div style="display: flex;">
+          {{element.amount_paid}}
+          <span matSuffix>€</span>
+        </div>
+    </button>
+      <div *ngIf="element.invoice_id==id_p">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <input matInput type="number" [(ngModel)]="element.amount_paid" (keydown.enter)="edit_paid(element)" />
+          <span matSuffix>€</span>
+        </mat-form-field>
+      </div>
+    </div>
+  </td>
+</ng-container>
+
+                                        <!-- Actions Column -->
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-button (click)="dispute(element)" [disabled]="element.invoices_status !== 'overdue'">dispute</button>
+      <button mat-button (click)="paidclient(element)">paid</button>
+    </td>
+  </ng-container>
+
+<ng-container matColumnDef="navigation">
+  <td mat-footer-cell *matFooterCellDef [attr.colspan]="displayedColumns.length" class="navigation-footer-cell">
+        <!-- Row Navigation Controls -->
+      
+      <div class="row-navigation" style="margin: 10px 0; display: flex; gap: 10px;justify-content: center;">
+        <button mat-stroked-button (click)="goToFirstRow()" [disabled]="currentRow <=0">
+        <mat-icon>first_page</mat-icon>
+        First
+        </button>
+        <button mat-icon-button color="primary" (click)="previousRow()" [disabled]="currentRow <=0">
+          <mat-icon>keyboard_arrow_up</mat-icon>
+        </button>
+      
+      <!-- the logic to creat the buttons 1 2 3-->
+       
+      <!--
+        <div *ngIf="currentRow < maxrow">  
+          <button mat-stroked-button (click)="previouspreviouscount()" [disabled]="count<3">
+            <mat-icon>first_page</mat-icon>
+          </button>
+          <button mat-icon-button color="primary" (click)="previouscount()" [disabled]="count <= 0">
+            <mat-icon>keyboard_arrow_up</mat-icon>
+          </button>
+          <button mat-mini-fab (click)="goToRow( 0)">{{count+1}}</button>
+          <button mat-mini-fab (click)="goToRow(1)">{{count+2}}</button>
+          <button mat-mini-fab (click)="goToRow(2)">{{count+3}}</button>
+        </div>  
+        <button mat-icon-button color="primary" (click)="nextcount()" [disabled]="count+6 >100">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+        </button>
+        <button mat-stroked-button (click)="nextnextcount()" [disabled]="count+9 >100">
+          <mat-icon>last_page</mat-icon>
+        </button>  
+      -->
+        <!-- the logic to creat the buttons 1 2 3 ends here-->
+      <button mat-icon-button color="primary" (click)="nextRow()" [disabled]="currentRow+5 >= maxrow"  title="Next Row">
+          <mat-icon>keyboard_arrow_down</mat-icon>
+      </button>
+        
+      
+      <button mat-stroked-button (click)="goToLastRow()" [disabled]="currentRow+5 >= maxrow">
+        <mat-icon>last_page</mat-icon>
+        Last
+      </button>
+    </div>
+    <!--ends in here-->
+
+
+
+    </td>
+</ng-container>
+  
+
+
+
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="displaysfotter">
+    
+  </tr>
+</table>
+
+  

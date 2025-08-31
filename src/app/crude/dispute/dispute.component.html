@@ -1,0 +1,55 @@
+
+<mat-card class="login-card">
+     <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>names</mat-label>
+            <input type="text"
+                placeholder="Pick one"
+                aria-label="names"
+                matInput
+                [formControl]="myControl"
+               [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let patient of filtered | async" [value]="patient">{{patient}}</mat-option>
+                </mat-autocomplete>
+        </mat-form-field>
+        <button mat-icon-button color="primary" (click)="transfer()">search</button>
+    </form>
+
+    <div *ngFor="let client of clients">    
+        <mat-card-header>
+            <mat-card-title>Client Name :{{client.name}} </mat-card-title>
+            <mat-card-subtitle>Client Email: {{client.email}}</mat-card-subtitle>
+        </mat-card-header>
+       
+    
+        <mat-card class="mad-card">
+            <div *ngFor="let litige of litiges">
+                <div *ngIf="litige.clientid === client.id">
+                    <mat-card-content>
+                        <p>description: {{litige.description}}</p>
+                        <p>status: {{litige.status}}</p>
+                        <p>createdAt: {{litige.opened_at | date:'short'}}</p>
+                        
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button (click)="openDisputeDialog( litige)">View Details</button>
+                        <button mat-button (click)="deleteDispute(litige.numeroCommande)">Delete</button>
+                        <button mat-button (click)="editDispute( litige)">Edit</button>
+                    </mat-card-actions>
+                          
+                </div>
+            </div> 
+            <div *ngIf="!bool">    
+                <mat-card-actions class="card">
+                    <button mat-icon-button (click)="expand()"> <mat-icon>expand_more</mat-icon> </button>
+                </mat-card-actions> 
+            </div>        
+        </mat-card>   
+    </div>
+    <div *ngIf="bool">    
+        <mat-card-actions class="card">
+            <button mat-icon-button (click)="ngOnInit()" ><mat-icon>expand_less</mat-icon> </button>
+         </mat-card-actions>  
+    </div>
+</mat-card>

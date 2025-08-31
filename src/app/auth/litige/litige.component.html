@@ -1,0 +1,51 @@
+<mat-card class="login-card">
+    <mat-card-header>
+        <mat-card-title>Litige</mat-card-title>
+        <mat-card-subtitle>Déposer un litige</mat-card-subtitle>
+        <span class="time-label">{{ litige.opened_at| date: 'short' }}</span>
+    </mat-card-header> 
+    <mat-card-content>
+
+        <!-- Client ID (disabled) -->
+        <mat-form-field appearance="outline" class="login">
+          <mat-label>Client ID</mat-label>
+          <input matInput [(ngModel)]="litige.clientId" name="clientId" disabled>
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <!-- Invoice ID (disabled) -->
+        <mat-form-field appearance="outline" class="login">
+          <mat-label>Invoice ID</mat-label>
+          <input matInput [(ngModel)]="litige.invoice_id" name="invoice_id" disabled>
+          <mat-icon matSuffix>receipt</mat-icon>
+        </mat-form-field>
+
+        <!-- Status -->
+        <mat-form-field appearance="outline" class="login">
+          <mat-label>Status</mat-label>
+          <mat-select [(ngModel)]="litige.status" name="status" required>
+            <mat-option value="open">Open</mat-option>
+            <mat-option value="investigating">Investigating</mat-option>
+            <mat-option value="in_court">In court</mat-option>
+            <mat-option value="resolved">Resolved</mat-option>
+          </mat-select>
+          <mat-error *ngIf="!litige.status">Status is required.</mat-error>
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field appearance="outline" class="login">
+          <mat-label>Description</mat-label>
+          <textarea matInput [(ngModel)]="litige.description" name="description" required></textarea>
+          <mat-icon matSuffix>description</mat-icon>
+          <mat-error *ngIf="!litige.description">Description is required.</mat-error>
+        </mat-form-field>
+
+
+      
+
+
+        <button mat-raised-button color="primary" (click)="submitLitige()" [disabled]="!litige.status || !litige.description ">
+          Déposer le litige
+        </button>
+    </mat-card-content>
+</mat-card>

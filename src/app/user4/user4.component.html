@@ -1,0 +1,8 @@
+<div class="cards-container" *ngIf="dispute && link && dataSeries">    
+    <app-dispute [link]="link"></app-dispute>
+    
+    <app-pie [yes]="dispute" ></app-pie>
+    <app-line [dataSeries]="dataSeries"></app-line>
+    <app-table [id_c]="id"></app-table>
+
+</div>              

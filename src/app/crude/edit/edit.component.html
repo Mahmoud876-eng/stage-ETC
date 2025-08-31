@@ -1,0 +1,54 @@
+<mat-card class="login-card">
+    <mat-card-header>
+        <mat-card-title>Litige</mat-card-title>
+        <mat-card-subtitle>Déposer un litige</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <!-- Client ID (read-only) -->
+        <mat-form-field appearance="outline" class="login">
+            <mat-label>ID Client</mat-label>
+            <input matInput [(ngModel)]="litige.clientId" name="clientId" disabled>
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+
+        <!-- Invoice ID (read-only) -->
+        <mat-form-field appearance="outline" class="login">
+            <mat-label>ID Facture</mat-label>
+            <input matInput [(ngModel)]="litige.invoice_id" name="invoice_id" disabled>
+            <mat-icon matSuffix>receipt</mat-icon>
+        </mat-form-field>
+
+        <!-- Status -->
+        <mat-form-field appearance="outline" class="login">
+            <mat-label>Statut</mat-label>
+            <mat-select [(ngModel)]="litige.status" name="status" required>
+            <mat-option value="open">Open</mat-option>
+            <mat-option value="investigating">Investigating</mat-option>
+            <mat-option value="in_court">In court</mat-option>
+            <mat-option value="resolved">Resolved</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!-- Description -->
+        <mat-form-field appearance="outline" class="login">
+            <mat-label>Description du litige</mat-label>
+            <textarea matInput [(ngModel)]="litige.description" name="description" required></textarea>
+            <mat-icon matSuffix>description</mat-icon>
+            <mat-error *ngIf="!litige.description">La description du litige est requise.</mat-error>
+        </mat-form-field>
+        <!--<mat-form-field>
+            <mat-label>Pièce jointe (facultatif)</mat-label>
+            <input type="file" (change)="onFileSelected($event)" accept=".pdf,.jpg,.jpeg,.png" />
+            <mat-icon matSuffix>attach_file</mat-icon>
+            <mat-hint>Formats acceptés : PDF, JPG, JPEG, PNG</mat-hint>
+            <mat-error *ngIf="fileError">{{ fileError }}</mat-error>
+        </mat-form-field>
+        -->
+        <!-- Pièce jointe (facultatif) can be added here if needed -->
+        <mat-checkbox [(ngModel)]="litige.confirmer" name="confirmer" required>
+            Je confirme que les informations fournies sont correctes.
+        </mat-checkbox>
+        <mat-error *ngIf="!litige.confirmer">Vous devez confirmer le dépôt du litige.</mat-error>
+        <button mat-raised-button color="primary" (click)="submitLitige()" [disabled]="!litige.confirmer">Déposer le litige</button>
+    </mat-card-content>
+</mat-card>
