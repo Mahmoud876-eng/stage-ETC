@@ -24,3 +24,9 @@ steps:
 - powershell: |
     ng build 
   displayName: ' build the app'
+  
+- task: AzureStaticWebApp@0
+  inputs:
+    app_location: 'dist/litige'
+    azure_static_web_apps_api_token: $(token) 
+  displayName: 'Deploy to Azure'
