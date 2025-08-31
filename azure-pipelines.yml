@@ -22,7 +22,7 @@ steps:
     npm install
   displayName: "install dependecies"
 - script: 
-    ng build --prod
+    ng build 
   displayName: ' build the app'
   
 - task: AzureStaticWebApp@0
