@@ -24,7 +24,10 @@ steps:
 - powershell: |
     ng build 
   displayName: ' build the app'
-  
+- powershell: |
+    echo "##vso[task.prependpath]C:\Program Files\Git\bin"
+  displayName: 'Add Git Bash to PATH'
+
 - task: AzureStaticWebApp@0
   inputs:
     app_location: 'dist/litige'
