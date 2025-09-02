@@ -23,11 +23,11 @@ export class User4Component {
   constructor(private clientsService: ClientsService, private route: ActivatedRoute) { }
   ngOnInit() {
    
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.url = `http://127.0.0.1:5000/litige/${this.id}`;
-    console.log("id from route", this.id);
-    this.link = `http://127.0.0.1:5000/client/join/${this.id}`;
-    console.log("link", this.link);
+  this.id = this.route.snapshot.paramMap.get('id');
+  this.url = `https://litige.azurewebsites.net/litige/${this.id}`;
+  console.log("id from route", this.id);
+  this.link = `https://litige.azurewebsites.net/client/join/${this.id}`;
+  console.log("link", this.link);
     this.clientsService.getpieid(this.id).subscribe({
       next: (data) => {
         this.api = data;

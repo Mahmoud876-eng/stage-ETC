@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 export class SocketService {
   private socket!: Socket;
   constructor() {
-    this.socket =io('http://127.0.0.1:5000')
+    this.socket =io('https://litige.azurewebsites.net/')
    }
   listen(eventName: string): Observable<any> {
     return new Observable((subscriber) => {

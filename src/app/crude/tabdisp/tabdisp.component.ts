@@ -30,7 +30,7 @@ export class TabdispComponent {
     clienttNames: string[] = [];
   
     ngOnInit() {
-      const url = "http://127.0.0.1:5000/letiges/join";
+      const url = "https://litige.azurewebsites.net/letiges/join";
       this.filtered = this.myControl.valueChanges.pipe(
         startWith(''),
         map(value => this._filter(value || '')),
@@ -65,7 +65,7 @@ export class TabdispComponent {
     transfer() {
       // Logic to transfer data
       const searchTerm = this.myControl.value; 
-      const url= "http://127.0.0.1:5000/autocomplete/" + searchTerm;
+      const url= "https://litige.azurewebsites.net/autocomplete/" + searchTerm;
       this.filtered = this.myControl.valueChanges.pipe(
             startWith(''),
             map(value => this._filter(value || '')),

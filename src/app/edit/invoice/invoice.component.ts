@@ -27,7 +27,7 @@ export class InvoiceComponent implements OnInit {
   saveInvoice() {
     // For now, just log the invoice data
     console.log('Invoice to save:', this.invoice.invoices_status);
-    const url = 'http://127.0.0.1:5000/api/invoices/' + this.invoice.invoice_id
+    const url = 'https://litige.azurewebsites.net/api/invoices/' + this.invoice.invoice_id
     if (this.invoice.invoices_status === 'disputed') {
       this.http.put(url, this.invoice, { withCredentials: true }).subscribe({
         next: (response) => {

@@ -33,7 +33,7 @@ export class AppComponent implements OnInit{
   }
   notificationscall(){
     
-    const url ="http://127.0.0.1:5000/notifications";
+    const url ="https://litige.azurewebsites.net/notifications";
     this.http.get(url).subscribe({
       next:(data)=>{
         this.api=data
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit{
     })
   }
   delete(notification: string) {
-    const url = "http://127.0.0.1:5000/notifications/delete";
+    const url = "https://litige.azurewebsites.net/notifications/delete";
     
     console.log("Deleting notification:", notification);
     console.log("Current notifications count:", this.notificationsCount);
