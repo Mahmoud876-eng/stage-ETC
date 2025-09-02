@@ -27,7 +27,9 @@ steps:
 - powershell: |
     echo "##vso[task.prependpath]C:\Program Files\Git\bin"
   displayName: 'Add Git Bash to PATH'
-
+- powershell: |
+    echo "##vso[task.prependpath]C:\Program Files\Docker\Docker\resources\bin"
+  displayName: 'Add Docker to PATH'
 - task: AzureStaticWebApp@0
   inputs:
     app_location: 'dist/litige'
