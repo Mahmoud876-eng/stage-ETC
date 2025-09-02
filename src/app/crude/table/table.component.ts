@@ -80,7 +80,7 @@ SN: boolean = false;
         'montant', 'amount_paid',
       ];
       console.log("id from route", this.id_c);
-      const url="http://127.0.0.1:5000/tab/client/"+this.id_c;
+  const url="https://litige.azurewebsites.net/tab/client/"+this.id_c;
       this.api_tab(url)
       
       }
@@ -93,7 +93,7 @@ SN: boolean = false;
         'actions',
       ];
       this.notification=history.state.notification; // u go to the invoice that changed it s form
-      const url= "http://127.0.0.1:5000/letiges/join";
+  const url= "https://litige.azurewebsites.net/letiges/join";
       if (this.notification) {
         this.invoiceid(this.notification);
       }
@@ -138,7 +138,7 @@ SN: boolean = false;
     
 
     
-    const url= "http://127.0.0.1:5000/letiges/join/group";
+  const url= "https://litige.azurewebsites.net/letiges/join/group";
     this.filtered = this.myControl.valueChanges.pipe(
           startWith(''),
           map(value => this._filter(value || '')),
@@ -185,7 +185,7 @@ SN: boolean = false;
     // Logic to transfer data
     
     const searchTerm = this.myControl.value; 
-    const url= "http://127.0.0.1:5000/"+link + searchTerm;
+  const url= "https://litige.azurewebsites.net/"+link + searchTerm;
     this.filtered = this.myControl.valueChanges.pipe(
           startWith(''),
           map(value => this._filter(value || '')),
@@ -240,7 +240,7 @@ SN: boolean = false;
   }
   filterbytime() {
     const params: any = {};
-    const url="http://127.0.0.1:5000/filterbytime";
+  const url="https://litige.azurewebsites.net/filterbytime";
     if (this.time.min&& this.time.max) {
       params.min = this.time.min.toISOString();
       params.max = this.time.max.toISOString();
@@ -280,7 +280,7 @@ SN: boolean = false;
     })
    }
   paidclient(element: any) {
-    const url='http://127.0.0.1:5000/update/all' ;
+  const url='https://litige.azurewebsites.net/update/all' ;
     console.log("element from route", element);
     const data = {
       id: element.invoice_id,
@@ -296,7 +296,7 @@ SN: boolean = false;
         console.error("Error updating paid client:", error);
       }
     });
-    const url2 = 'http://127.0.0.1:5000/notifications/insert';
+  const url2 = 'https://litige.azurewebsites.net/notifications/insert';
     console.log("element from route", element);
     this.http.post(url2, data).subscribe({
       next: (data) => {
@@ -306,7 +306,7 @@ SN: boolean = false;
     });
   }
   invoiceid(notification: any) {
-    const url = `http://127.0.0.1:5000/notifications/${notification.invoice_id}`;
+  const url = `https://litige.azurewebsites.net/notifications/${notification.invoice_id}`;
     this.http.get(url).subscribe({
       next: (data) => {
         console.log("notification from route", notification);
@@ -333,7 +333,7 @@ SN: boolean = false;
   edit(element: any) {
     this.bool=!this.bool;
     this.id = element.invoice_id;
-    const url="http://127.0.0.1:5000/edit/montant"
+  const url="https://litige.azurewebsites.net/edit/montant"
     if (!this.bool) {
       //const result = confirm("Are you sure you want to edit the amount");
       this.partialdata={
@@ -351,7 +351,7 @@ SN: boolean = false;
   edit_paid(element: any) {
     this.paid=!this.paid;
     this.id_p = element.invoice_id;
-    const url="http://127.0.0.1:5000/edit/amount_paid"
+  const url="https://litige.azurewebsites.net/edit/amount_paid"
     if (!this.paid) {
       //const result = confirm("Are you sure you want to edit the amount paid");
       this.partialdata={
@@ -376,34 +376,34 @@ SN: boolean = false;
   nextRow(){
     console.log("next row");
     this.currentRow+=5;
-    const url = "http://127.0.0.1:5000/nextrow/"+ this.currentRow;
+  const url = "https://litige.azurewebsites.net/nextrow/"+ this.currentRow;
     this.api_tab(url);
 
   }
   previousRow(){
     console.log("previous row");
     this.currentRow-=5;
-    const url= "http://127.0.0.1:5000/previousrow/"+ this.currentRow;
+  const url= "https://litige.azurewebsites.net/previousrow/"+ this.currentRow;
     this.api_tab(url);
 
   }
   currentrow(){
     console.log("current row");
-    const url= "http://127.0.0.1:5000/nextrow/"+ this.currentRow;
+  const url= "https://litige.azurewebsites.net/nextrow/"+ this.currentRow;
     this.api_tab(url);
 
   }
   goToFirstRow(){
     console.log("go to first row");
     this.currentRow = 0;
-    const url = "http://127.0.0.1:5000/letiges/join";
+  const url = "https://litige.azurewebsites.net/letiges/join";
     this.api_tab(url);
   }
   goToLastRow(){
     console.log("go to last row");
     const restrow = this.maxrow %5;
     this.currentRow = this.maxrow - restrow ;
-    const url= "http://127.0.0.1:5000/previousrow/"+ this.currentRow;
+  const url= "https://litige.azurewebsites.net/previousrow/"+ this.currentRow;
     this.api_tab(url);
 
     
@@ -436,7 +436,7 @@ SN: boolean = false;
       })
 }  
 invoices() {
-  const url = "http://127.0.0.1:5000/invoices_sort";
+  const url = "https://litige.azurewebsites.net/invoices_sort";
   this.api_tab(url);
 
 }
@@ -465,7 +465,7 @@ invoices() {
   }
   goToRow(row: number) {
     this.currentRow = row * 5;
-    const url = "http://127.0.0.1:5000/nextrow/" + this.currentRow;
+  const url = "https://litige.azurewebsites.net/nextrow/" + this.currentRow;
     this.api_tab(url);
   }
 

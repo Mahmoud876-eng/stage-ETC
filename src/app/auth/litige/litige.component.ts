@@ -46,7 +46,7 @@ export class LitigeComponent {
     };
   }
   submitLitige() {
-    this.http.post('http://127.0.0.1:5000/register/litige', this.litige,{withCredentials: true}).subscribe({
+    this.http.post('https://litige.azurewebsites.net/register/litige', this.litige,{withCredentials: true}).subscribe({
       next: (response) => {
         console.log('Litige soumis avec succès', response);
         this.router.navigate(['/confirmation']);

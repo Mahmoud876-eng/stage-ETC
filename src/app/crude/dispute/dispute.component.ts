@@ -74,9 +74,9 @@ export class DisputeComponent {
     let url: string;
     this.id = this.routes.snapshot.paramMap.get('id')!;
     if (this.id) {
-      url= `http://127.0.0.1:5000/litige/${this.id}`;
+      url= `https://litige.azurewebsites.net/litige/${this.id}`;
     }else {
-      url= `http://127.0.0.1:5000/litige`;
+      url= `https://litige.azurewebsites.net/litige`;
     }
     //const url=`${this.link}`;
     console.log("link to show filter",url);
@@ -125,9 +125,9 @@ export class DisputeComponent {
   expand(){
     let url: string;
     if (!this.id) {
-      url= `http://127.0.0.1:5000/litige/all`;
+      url= `https://litige.azurewebsites.net/litige/all`;
     } else {
-      url= `http://127.0.0.1:5000/litige/${this.id}/all`;
+      url= `https://litige.azurewebsites.net/litige/${this.id}/all`;
     }
     this.bool = true;
     
@@ -148,8 +148,8 @@ export class DisputeComponent {
     return this.clienttNames.filter(name => name.toLowerCase().includes(filterValue));
   }
   transfer() {
-    const searchTerm = this.myControl.value; 
-    const url = `http://127.0.0.1:5000/litige/${this.id}/${searchTerm}`; //it make a search for the organizations
+  const searchTerm = this.myControl.value; 
+  const url = `https://litige.azurewebsites.net/litige/${this.id}/${searchTerm}`; //it make a search for the organizations
      // it make a search for the clients
     console.log("url to search",url);
     

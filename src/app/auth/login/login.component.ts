@@ -15,7 +15,7 @@ export class LoginComponent {
   id: any;
   constructor(private http: HttpClient, private router: Router)  {}
   login() {
-    const url = 'http://127.0.0.1:5000/login';
+    const url = 'https://litige.azurewebsites.net/login';
     this.http.post<{token: string}>(url, this.data,{ withCredentials: true}).subscribe({
       next: (data) => {
         this.apiData = data;

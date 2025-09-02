@@ -62,7 +62,7 @@ export class TabDispComponent {
 
   }
   disputeapi(){
-    const url = "http://127.0.0.1:5000/client/join";
+  const url = "https://litige.azurewebsites.net/client/join";
     this.filtered = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value || '')),
@@ -96,7 +96,7 @@ export class TabDispComponent {
   transfer() {
     // Logic to transfer data
     const searchTerm = this.myControl.value; 
-    const url= "http://127.0.0.1:5000/autocomplete/clients/" + searchTerm;
+  const url= "https://litige.azurewebsites.net/autocomplete/clients/" + searchTerm;
     this.filtered = this.myControl.valueChanges.pipe(
           startWith(''),
           map(value => this._filter(value || '')),

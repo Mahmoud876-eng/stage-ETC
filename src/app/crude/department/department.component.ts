@@ -23,7 +23,7 @@ api: any;
 
   constructor(private router: Router, private http: HttpClient) {}
   ngOnInit() {
-    const url= "http://127.0.0.1:5000/litige";
+    const url= "https://litige.azurewebsites.net/litige";
     this.bool = false;
     this.filtered = this.myControl.valueChanges.pipe(
       startWith(''),
@@ -61,7 +61,7 @@ api: any;
 
   };
   expand(){
-    const url= "http://127.0.0.1:5000/litige/all";
+    const url= "https://litige.azurewebsites.net/litige/all";
     this.bool = true;
     
     this.http.get(url,{ withCredentials: true }).subscribe({
@@ -82,7 +82,7 @@ api: any;
   }
   transfer() {
     const searchTerm = this.myControl.value; 
-    const url = `http://127.0.0.1:5000/litige/${searchTerm}`;
+    const url = `https://litige.azurewebsites.net/litige/${searchTerm}`;
     
     
     this.http.get(url,{ withCredentials: true }).subscribe({

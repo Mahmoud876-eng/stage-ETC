@@ -8,15 +8,15 @@ export class ClientsService {
 
   constructor(private http : HttpClient) { }
   getline() {
-    return this.http.get('http://127.0.0.1:5000/line');
+  return this.http.get('https://litige.azurewebsites.net/line');
   }
   getpie() {
-    return this.http.get('http://127.0.0.1:5000/pie/sum');
+  return this.http.get('https://litige.azurewebsites.net/pie/sum');
   }
   getlineid(id: string) {
-    return this.http.get(`http://127.0.1:5000/line/${id}`);
+    return this.http.get(`https://litige.azurewebsites.net/line/${id}`);
   }
   getpieid(id: string) {
-    return this.http.get(`http://127.0.1:5000/pie/sum/${id}`);
+    return this.http.get(`https://litige.azurewebsites.net/pie/sum/${id}`);
   }
 }
