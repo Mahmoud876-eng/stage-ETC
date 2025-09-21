@@ -20,7 +20,7 @@ export class LoginComponent {
       next: (data) => {
         this.apiData = data;
         localStorage.setItem('token', this.apiData.token);
-        this.router.navigate(['/dispute']);
+        this.router.navigate(['/client']);
        
       },
       error: (err) => {

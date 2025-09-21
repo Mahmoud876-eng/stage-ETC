@@ -33,7 +33,7 @@ const routes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: 'edit/invoice', component: InvoiceComponent, canActivate: [AuthGuard] },
     { path: 'test', component: TolbarComponent, canActivate: [AuthGuard] },
-   //{path:'**', redirectTo: 'login', pathMatch: 'full'},
+   {path:'**', redirectTo: 'login', pathMatch: 'full'},
 ];
 
 @NgModule({
